@@ -25,7 +25,8 @@ public class WriteAuthors {
             }
         }
     }
-    private static boolean enterOneMoreAuthor(Scanner scanner) {
+
+    public static boolean enterOneMoreAuthor(Scanner scanner) {
         String answer;
         do {
             System.out.print("One more author (yes/no)? ");

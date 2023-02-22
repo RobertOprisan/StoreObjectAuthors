@@ -1,5 +1,6 @@
+import java.io.*;
 import java.util.Scanner;
-class Author {
+class Author implements Serializable {
     private String name;
     private String email;
     private char gender;
@@ -62,4 +63,30 @@ class Author {
         } while (invalidNumber);
         return new Author(name, email, gender, year);
     }
+
+    public static void main(String[] args) throws IOException {
+        Scanner scanner = new Scanner(System.in);
+        ObjectOutputStream out = null;
+        try {
+// I am appending data.
+// Remove the true argument to reset the file
+            out = new ObjectOutputStream (
+                    new BufferedOutputStream(
+                            new FileOutputStream("authors.obj", true)));
+            do {
+                Author a = Author.readFromKeyboard(scanner);
+                out.writeObject(a);
+            } while(WriteAuthors.enterOneMoreAuthor(scanner));
+        } catch (FileNotFoundException ex) {
+            System.err.println("Could not create the file");
+        } catch (IOException ex) {
+            System.err.println("Error writing Author to the file");
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+        }
+    }
+
+
 }
